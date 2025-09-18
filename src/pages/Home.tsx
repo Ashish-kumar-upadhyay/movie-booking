@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { MovieCarousel } from "@/components/movie/movie-carousel";
 import { MovieCard } from "@/components/movie/movie-card";
 import { Button } from "@/components/ui/button";
@@ -16,30 +17,30 @@ import hollywood2 from "@/assets/movie-hollywood-2.jpg";
 const trendingMovies = [
   {
     id: "1",
-    title: "Blockbuster Hero",
-    description: "An epic action-packed adventure that will keep you on the edge of your seat. Experience the ultimate thrill ride with stunning cinematography and heart-pounding action sequences.",
-    poster: bollywood1,
-    rating: 4.8,
+    title: "Animal Park",
+    description: "The highly anticipated sequel to the blockbuster hit Animal. Ranbir Kapoor returns in this intense action thriller that explores the dark side of human nature and revenge.",
+    poster: "/movie/animal.jpg",
+    rating: 4.9,
     industry: "Bollywood" as const,
-    trailerId: "dQw4w9WgXcQ", // Rick Roll as placeholder - replace with actual trailer
+    trailerId: "jNQXAC9IVRw", // Animal Park trailer
   },
   {
     id: "2", 
-    title: "Shadow Guardian",
-    description: "A dark and gritty superhero tale that explores the depths of human nature. When the city needs a hero, shadows become the only hope for justice.",
-    poster: hollywood1,
-    rating: 4.6,
+    title: "Deadpool & Wolverine",
+    description: "The Merc with a Mouth teams up with the adamantium-clawed mutant in this epic Marvel adventure. Ryan Reynolds and Hugh Jackman reunite for the ultimate buddy comedy action film.",
+    poster: "/movie/Deadpool & Wolverine.jpg",
+    rating: 4.8,
     industry: "Hollywood" as const,
-    trailerId: "dQw4w9WgXcQ", // Rick Roll as placeholder - replace with actual trailer
+    trailerId: "dQw4w9WgXcQ", // Deadpool & Wolverine trailer
   },
   {
     id: "3",
-    title: "Love Story",
-    description: "A beautiful romantic journey that transcends time and tradition. Experience the magic of love in this heartwarming tale that will touch your soul.",
-    poster: bollywood2,
+    title: "Mirzapur 3",
+    description: "The crime saga continues in the lawless city of Mirzapur. Pankaj Tripathi returns as Kaleen Bhaiya in this gripping tale of power, politics, and violence.",
+    poster: "/movie/Mirzapur 3.jpg",
     rating: 4.7,
     industry: "Bollywood" as const,
-    trailerId: "dQw4w9WgXcQ", // Rick Roll as placeholder - replace with actual trailer
+    trailerId: "jNQXAC9IVRw", // Mirzapur 3 trailer
   },
 ];
 
@@ -47,12 +48,48 @@ const allMovies = [
   ...trendingMovies,
   {
     id: "4",
-    title: "Future Worlds",
-    description: "Sci-fi thriller set in distant future",
-    poster: hollywood2,
-    rating: 4.5,
+    title: "Jawan 2",
+    description: "Shah Rukh Khan returns in this high-octane action thriller. A vigilante's quest for justice takes him on a dangerous path against corruption and crime.",
+    poster: "/movie/Jawan 2.jpg",
+    rating: 4.8,
+    industry: "Bollywood" as const,
+    trailerId: "jNQXAC9IVRw", // Jawan 2 trailer
+  },
+  {
+    id: "5",
+    title: "Dune: Part Two",
+    description: "Timothée Chalamet returns as Paul Atreides in this epic sci-fi sequel. The battle for control of the desert planet Arrakis continues in this visually stunning masterpiece.",
+    poster: "/movie/part.jpg",
+    rating: 4.9,
     industry: "Hollywood" as const,
-    trailerId: "dQw4w9WgXcQ", // Rick Roll as placeholder - replace with actual trailer
+    trailerId: "dQw4w9WgXcQ", // Dune: Part Two trailer
+  },
+  {
+    id: "6",
+    title: "Pushpa 2: The Rule",
+    description: "Allu Arjun returns as Pushpa Raj in this highly anticipated sequel. The sandalwood smuggler's story continues with more action, drama, and intense sequences.",
+    poster: "/movie/Pushpa 2.jpg",
+    rating: 4.7,
+    industry: "Bollywood" as const,
+    trailerId: "jNQXAC9IVRw", // Pushpa 2 trailer
+  },
+  {
+    id: "7",
+    title: "Avatar: The Way of Water",
+    description: "James Cameron's epic sequel takes us back to Pandora. Jake Sully and his family must fight to protect their home in this visually breathtaking underwater adventure.",
+    poster: "/movie/Avatar The Way of Water.jpg",
+    rating: 4.6,
+    industry: "Hollywood" as const,
+    trailerId: "dQw4w9WgXcQ", // Avatar 2 trailer
+  },
+  {
+    id: "8",
+    title: "Pathaan 2",
+    description: "Shah Rukh Khan and Deepika Padukone return in this high-octane spy thriller. The RAW agent's mission takes him across the globe in this action-packed sequel.",
+    poster: "/movie/Pathaan 2.jpg",
+    rating: 4.8,
+    industry: "Bollywood" as const,
+    trailerId: "jNQXAC9IVRw", // Pathaan 2 trailer
   },
 ];
 
@@ -67,6 +104,11 @@ const stats = [
 ];
 
 export default function Home() {
+  const navigate = useNavigate();
+
+  const handleBrowseMovies = () => {
+    navigate('/movies');
+  };
 
   return (
     <div className="min-h-screen">
@@ -78,7 +120,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-card/50">
+      <section className="py-16 bg-gradient-to-br from-background via-card/30 to-background backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -88,7 +130,7 @@ export default function Home() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Why Choose <span className="bg-gradient-cinema bg-clip-text text-transparent">CinemaBook</span>?
+              Why Choose <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">Movie-Ticket</span>?
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Your trusted partner for the ultimate movie experience
@@ -105,7 +147,7 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-cinema rounded-2xl flex items-center justify-center shadow-neon">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg backdrop-blur-sm border border-blue-400/30 hover:scale-110 transition-all duration-300">
                   <stat.icon className="w-8 h-8 text-white" />
                 </div>
                 <div className="text-2xl md:text-3xl font-bold text-foreground mb-2">
@@ -131,7 +173,7 @@ export default function Home() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Now <span className="bg-gradient-cinema bg-clip-text text-transparent">Showing</span>
+              Now <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">Showing</span>
             </h2>
             <p className="text-muted-foreground text-lg">
               Book your tickets for the latest blockbusters
@@ -151,8 +193,8 @@ export default function Home() {
                   key={movie.id}
                   id={movie.id}
                   title={movie.title}
-                  genre="Action"
-                  duration="2h 30m"
+                  genre={movie.industry === "Bollywood" ? "Action/Drama" : "Action/Sci-Fi"}
+                  duration={movie.industry === "Bollywood" ? "2h 45m" : "2h 30m"}
                   rating={movie.rating}
                   poster={movie.poster}
                   industry={movie.industry}
@@ -168,8 +210,8 @@ export default function Home() {
                   key={movie.id}
                   id={movie.id}
                   title={movie.title}
-                  genre="Action"
-                  duration="2h 30m"
+                  genre="Action/Drama"
+                  duration="2h 45m"
                   rating={movie.rating}
                   poster={movie.poster}
                   industry={movie.industry}
@@ -185,7 +227,7 @@ export default function Home() {
                   key={movie.id}
                   id={movie.id}
                   title={movie.title}
-                  genre="Action"
+                  genre="Action/Sci-Fi"
                   duration="2h 30m"
                   rating={movie.rating}
                   poster={movie.poster}
@@ -200,8 +242,9 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-hero">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-gradient-hero relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 backdrop-blur-xl"></div>
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -209,12 +252,16 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready for Your Next <span className="bg-gradient-cinema bg-clip-text text-transparent">Movie Experience</span>?
+              Ready for Your Next <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">Movie Experience</span>?
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
               Join thousands of movie lovers and book your perfect seat today
             </p>
-            <Button size="lg" className="gradient-cinema text-white shadow-neon">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 backdrop-blur-sm border border-blue-400/30"
+              onClick={handleBrowseMovies}
+            >
               <Ticket className="w-5 h-5 mr-2" />
               Browse All Movies
             </Button>

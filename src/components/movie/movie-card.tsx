@@ -82,16 +82,17 @@ export function MovieCard({
       }}
     >
       <motion.div 
-        className="neumorphic-card bg-card rounded-3xl overflow-hidden transition-all duration-300"
+        className="bg-card/50 backdrop-blur-xl rounded-3xl overflow-hidden transition-all duration-500 border border-white/10"
         whileHover={{
-          boxShadow: "20px 20px 40px rgb(25, 25, 25), -20px -20px 40px rgb(60, 60, 60)",
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1)",
+          borderColor: "rgba(255, 255, 255, 0.2)",
           transition: { duration: 0.3 }
         }}
         style={{
           transformStyle: "preserve-3d",
           backfaceVisibility: "hidden",
-          background: "#212121",
-          boxShadow: "15px 15px 30px rgb(25, 25, 25), -15px -15px 30px rgb(60, 60, 60)"
+          background: "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)"
         }}
       >
         {/* Movie Poster */}
@@ -112,13 +113,13 @@ export function MovieCard({
           {/* Industry Badge */}
           <Badge
             variant={industry === "Bollywood" ? "default" : "secondary"}
-            className="absolute top-3 left-3 bg-black/50 backdrop-blur-sm"
+            className="absolute top-3 left-3 bg-black/60 backdrop-blur-md border border-white/20 text-white/90"
           >
             {industry}
           </Badge>
           
           {/* Rating */}
-          <div className="absolute top-3 right-3 flex items-center space-x-1 bg-black/50 backdrop-blur-sm rounded-md px-2 py-1">
+          <div className="absolute top-3 right-3 flex items-center space-x-1 bg-black/60 backdrop-blur-md rounded-md px-2 py-1 border border-white/20">
             <Star className="w-3 h-3 text-yellow-400 fill-current" />
             <span className="text-xs font-medium text-white">{rating}</span>
           </div>
@@ -132,7 +133,7 @@ export function MovieCard({
               <Button
                 size="lg"
                 onClick={handlePlayTrailer}
-                className="rounded-full w-16 h-16 gradient-cinema shadow-lg"
+                className="rounded-full w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 shadow-2xl backdrop-blur-sm border border-blue-400/30 hover:scale-110 transition-all duration-300"
                 disabled={!trailerId}
               >
                 <Play className="w-6 h-6 text-white fill-current" />
@@ -142,8 +143,8 @@ export function MovieCard({
         </div>
         
         {/* Movie Info */}
-        <div className="p-4 space-y-3 bg-gradient-to-b from-transparent to-black/20">
-          <h3 className="font-bold text-lg leading-tight group-hover:text-primary transition-colors duration-300">
+        <div className="p-4 space-y-3 bg-gradient-to-b from-transparent to-black/30 backdrop-blur-sm">
+          <h3 className="font-bold text-lg leading-tight group-hover:text-primary transition-colors duration-300 drop-shadow-sm">
             {title}
           </h3>
           
@@ -161,11 +162,7 @@ export function MovieCard({
           >
             <Button
               onClick={handleBookNow}
-              className="w-full neumorphic-button text-white transition-all duration-300"
-              style={{
-                background: "linear-gradient(135deg, #ff006e 0%, #8338ec 100%)",
-                boxShadow: "8px 8px 16px rgb(25, 25, 25), -8px -8px 16px rgb(60, 60, 60)"
-              }}
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl backdrop-blur-sm border border-blue-400/30"
             >
               Book Now
             </Button>

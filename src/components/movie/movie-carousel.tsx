@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Play, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { TrailerModal } from "./trailer-modal";
 
 interface Movie {
   id: string;
@@ -11,6 +13,7 @@ interface Movie {
   poster: string;
   rating: number;
   industry: "Bollywood" | "Hollywood";
+  trailerId?: string;
 }
 
 interface MovieCarouselProps {
@@ -20,6 +23,8 @@ interface MovieCarouselProps {
 export function MovieCarousel({ movies }: MovieCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isTrailerOpen, setIsTrailerOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Auto-slide functionality
   useEffect(() => {
@@ -46,6 +51,26 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
     setCurrentIndex((prev) => (prev - 1 + movies.length) % movies.length);
   };
 
+  const handleBookTickets = () => {
+    const currentMovie = movies[currentIndex];
+    navigate('/cinema-selection', { 
+      state: { 
+        movie: {
+          id: currentMovie.id,
+          title: currentMovie.title,
+          description: currentMovie.description,
+          poster: currentMovie.poster,
+          rating: currentMovie.rating,
+          industry: currentMovie.industry
+        }
+      }
+    });
+  };
+
+  const handleWatchTrailer = () => {
+    setIsTrailerOpen(true);
+  };
+
   if (!movies.length) return null;
 
   const currentMovie = movies[currentIndex];
@@ -67,9 +92,10 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
             style={{ backgroundImage: `url(${currentMovie.poster})` }}
           />
           
-          {/* Gradient Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          {/* Enhanced Gradient Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20" />
           
           {/* Content */}
           <div className="relative h-full flex items-center">
@@ -87,7 +113,7 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
                     {currentMovie.industry}
                   </Badge>
                   
-                  <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                  <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-white via-white to-gray-200 bg-clip-text text-transparent drop-shadow-2xl">
                     {currentMovie.title}
                   </h1>
                   
@@ -100,16 +126,25 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
                     <span className="text-white">2024</span>
                   </div>
                   
-                  <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+                  <p className="text-lg text-gray-200 mb-8 leading-relaxed drop-shadow-lg">
                     {currentMovie.description}
                   </p>
                   
                   <div className="flex space-x-4">
-                    <Button size="lg" className="gradient-cinema text-white shadow-neon">
+                    <Button 
+                      size="lg" 
+                      className="bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 backdrop-blur-sm border border-blue-400/30"
+                      onClick={handleWatchTrailer}
+                    >
                       <Play className="w-5 h-5 mr-2 fill-current" />
                       Watch Trailer
                     </Button>
-                    <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="border-white/30 text-white hover:bg-white/20 hover:border-white/50 backdrop-blur-sm hover:scale-105 transition-all duration-300"
+                      onClick={handleBookTickets}
+                    >
                       Book Tickets
                     </Button>
                   </div>
@@ -120,12 +155,12 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
         </motion.div>
       </AnimatePresence>
       
-      {/* Navigation Arrows */}
+      {/* Enhanced Navigation Arrows */}
       <Button
         variant="ghost"
         size="icon"
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/50 text-white"
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-black/40 backdrop-blur-md hover:bg-black/60 text-white border border-white/20 hover:border-white/40 hover:scale-110 transition-all duration-300 shadow-2xl"
       >
         <ChevronLeft className="w-6 h-6" />
       </Button>
@@ -134,25 +169,33 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
         variant="ghost"
         size="icon"
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/50 text-white"
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-black/40 backdrop-blur-md hover:bg-black/60 text-white border border-white/20 hover:border-white/40 hover:scale-110 transition-all duration-300 shadow-2xl"
       >
         <ChevronRight className="w-6 h-6" />
       </Button>
       
-      {/* Slide Indicators */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
+      {/* Enhanced Slide Indicators */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-3">
         {movies.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-smooth ${
+            className={`w-4 h-4 rounded-full transition-all duration-300 hover:scale-125 ${
               index === currentIndex
-                ? "bg-primary shadow-neon"
-                : "bg-white/30 hover:bg-white/50"
+                ? "bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg shadow-blue-500/50 scale-125"
+                : "bg-white/40 hover:bg-white/60 backdrop-blur-sm"
             }`}
           />
         ))}
       </div>
+
+      {/* Trailer Modal */}
+      <TrailerModal
+        isOpen={isTrailerOpen}
+        onClose={() => setIsTrailerOpen(false)}
+        movieTitle={currentMovie.title}
+        trailerId={currentMovie.trailerId || "dQw4w9WgXcQ"}
+      />
     </div>
   );
 }

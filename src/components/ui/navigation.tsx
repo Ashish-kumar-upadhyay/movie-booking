@@ -23,22 +23,22 @@ export function Navigation() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="bg-card/80 backdrop-blur-lg border-b border-border fixed top-0 left-0 right-0 z-50 shadow-card">
+    <nav className="bg-card/50 backdrop-blur-xl border-b border-white/10 fixed top-0 left-0 right-0 z-50 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo with enhanced design */}
           <Link to="/" className="flex items-center space-x-3 group">
             <motion.div 
               whileHover={{ scale: 1.05, rotate: 5 }}
-              className="w-10 h-10 bg-gradient-cinema rounded-xl flex items-center justify-center shadow-neon group-hover:shadow-premium transition-smooth"
+              className="w-10 h-10 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300"
             >
               <Film className="w-6 h-6 text-white" />
             </motion.div>
             <div className="hidden sm:block">
-              <span className="text-xl font-bold bg-gradient-cinema bg-clip-text text-transparent">
-                CinemaBook
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Movie-Ticket
               </span>
-              <div className="text-xs text-muted-foreground -mt-1">Premium Cinema</div>
+              <div className="text-xs text-muted-foreground -mt-1">Premium Cinema Experience</div>
             </div>
           </Link>
 
@@ -49,10 +49,10 @@ export function Navigation() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-smooth ${
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
                     isActive(item.path)
-                      ? "bg-primary/20 text-primary glow-primary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                      ? "bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-400 backdrop-blur-sm border border-blue-400/30 shadow-lg"
+                      : "text-muted-foreground hover:text-white hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 hover:backdrop-blur-sm"
                   }`}
                 >
                   {item.name}
@@ -73,8 +73,8 @@ export function Navigation() {
                   </Button>
                 </Link>
                 
-                <div className="flex items-center space-x-2 px-3 py-1 bg-secondary/50 rounded-lg">
-                  <div className="w-8 h-8 bg-gradient-cinema rounded-full flex items-center justify-center">
+                <div className="flex items-center space-x-2 px-3 py-1 bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm rounded-lg border border-blue-400/20">
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                     <User className="w-4 h-4 text-white" />
                   </div>
                   <span className="text-sm font-medium">{user.email}</span>
@@ -93,7 +93,7 @@ export function Navigation() {
                   </Button>
                 </Link>
                 <Link to="/auth">
-                  <Button size="sm" className="gradient-cinema text-white shadow-neon hover:shadow-premium">
+                  <Button size="sm" className="bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 backdrop-blur-sm border border-blue-400/30">
                     Sign Up
                   </Button>
                 </Link>
@@ -121,7 +121,7 @@ export function Navigation() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-card border-t border-border"
+            className="md:hidden bg-card/80 backdrop-blur-xl border-t border-white/10"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
