@@ -28,14 +28,14 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
 
   // Auto-slide functionality
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying || isTrailerOpen) return;
     
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % movies.length);
     }, 5000);
     
     return () => clearInterval(interval);
-  }, [movies.length, isPlaying]);
+  }, [movies.length, isPlaying, isTrailerOpen]);
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
@@ -68,6 +68,7 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
   };
 
   const handleWatchTrailer = () => {
+    setIsPlaying(false); // Pause auto-slide when trailer opens
     setIsTrailerOpen(true);
   };
 
@@ -192,7 +193,10 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
       {/* Trailer Modal */}
       <TrailerModal
         isOpen={isTrailerOpen}
-        onClose={() => setIsTrailerOpen(false)}
+        onClose={() => {
+          setIsTrailerOpen(false);
+          setIsPlaying(true); // Resume auto-slide when trailer closes
+        }}
         movieTitle={currentMovie.title}
         trailerId={currentMovie.trailerId || "dQw4w9WgXcQ"}
       />

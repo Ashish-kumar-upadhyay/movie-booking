@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navigation } from "@/components/ui/navigation";
 import { Footer } from "@/components/ui/footer";
 import { AuthProvider } from "@/hooks/useAuth";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Home from "./pages/Home";
 import Movies from "./pages/Movies";
@@ -23,50 +24,52 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <div className="min-h-screen bg-background flex flex-col">
-            <Navigation />
-            <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/movies" element={<Movies />} />
-                <Route path="/bookings" element={
-                  <ProtectedRoute>
-                    <Bookings />
-                  </ProtectedRoute>
-                } />
-                <Route path="/reviews" element={
-                  <ProtectedRoute>
-                    <Reviews />
-                  </ProtectedRoute>
-                } />
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/cinema-selection" element={<CinemaSelection />} />
-                <Route path="/show-selection" element={<ShowSelection />} />
-                <Route path="/seat-selection" element={<SeatSelection />} />
-                <Route path="/booking-confirmation" element={
-                  <ProtectedRoute>
-                    <BookingConfirmation />
-                  </ProtectedRoute>
-                } />
-                <Route path="/admin" element={
-                  <ProtectedRoute>
-                    <AdminPanel />
-                  </ProtectedRoute>
-                } />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
-        </BrowserRouter>
-      </TooltipProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <div className="min-h-screen bg-background flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/movies" element={<Movies />} />
+                  <Route path="/bookings" element={
+                    <ProtectedRoute>
+                      <Bookings />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/reviews" element={
+                    <ProtectedRoute>
+                      <Reviews />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/auth" element={<Auth />} />
+                  <Route path="/cinema-selection" element={<CinemaSelection />} />
+                  <Route path="/show-selection" element={<ShowSelection />} />
+                  <Route path="/seat-selection" element={<SeatSelection />} />
+                  <Route path="/booking-confirmation" element={
+                    <ProtectedRoute>
+                      <BookingConfirmation />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/admin" element={
+                    <ProtectedRoute>
+                      <AdminPanel />
+                    </ProtectedRoute>
+                  } />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

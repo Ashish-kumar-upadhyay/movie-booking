@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Film, User, Ticket, Menu, X, LogOut, Settings, MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,6 +65,9 @@ export function Navigation() {
 
           {/* Auth Section */}
           <div className="hidden md:flex items-center space-x-4">
+            {/* Theme Toggle */}
+            <ThemeToggle />
+            
             {user ? (
               <div className="flex items-center space-x-3">
                 {/* Admin Panel Link */}
@@ -141,6 +145,11 @@ export function Navigation() {
                 </Link>
               ))}
               <div className="pt-4 pb-2 space-y-2">
+                {/* Mobile Theme Toggle */}
+                <div className="flex justify-center px-3 py-2">
+                  <ThemeToggle />
+                </div>
+                
                 {user ? (
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2 px-3 py-2 bg-secondary/50 rounded-lg">

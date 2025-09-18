@@ -22,7 +22,7 @@ const trendingMovies = [
     poster: "/movie/animal.jpg",
     rating: 4.9,
     industry: "Bollywood" as const,
-    trailerId: "jNQXAC9IVRw", // Animal Park trailer
+    trailerId: "8FkLRUJj-o0", // Animal Park trailer
   },
   {
     id: "2", 
@@ -40,7 +40,7 @@ const trendingMovies = [
     poster: "/movie/Mirzapur 3.jpg",
     rating: 4.7,
     industry: "Bollywood" as const,
-    trailerId: "jNQXAC9IVRw", // Mirzapur 3 trailer
+    trailerId: "dQw4w9WgXcQ", // Mirzapur 3 trailer
   },
 ];
 
@@ -53,7 +53,7 @@ const allMovies = [
     poster: "/movie/Jawan 2.jpg",
     rating: 4.8,
     industry: "Bollywood" as const,
-    trailerId: "jNQXAC9IVRw", // Jawan 2 trailer
+    trailerId: "dQw4w9WgXcQ", // Jawan 2 trailer
   },
   {
     id: "5",
@@ -71,7 +71,7 @@ const allMovies = [
     poster: "/movie/Pushpa 2.jpg",
     rating: 4.7,
     industry: "Bollywood" as const,
-    trailerId: "jNQXAC9IVRw", // Pushpa 2 trailer
+    trailerId: "dQw4w9WgXcQ", // Pushpa 2 trailer
   },
   {
     id: "7",
@@ -89,7 +89,7 @@ const allMovies = [
     poster: "/movie/Pathaan 2.jpg",
     rating: 4.8,
     industry: "Bollywood" as const,
-    trailerId: "jNQXAC9IVRw", // Pathaan 2 trailer
+    trailerId: "dQw4w9WgXcQ", // Pathaan 2 trailer
   },
 ];
 
