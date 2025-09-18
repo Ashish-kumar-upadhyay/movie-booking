@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Film, User, Ticket, Menu, X, LogOut, Settings } from "lucide-react";
+import { Film, User, Ticket, Menu, X, LogOut, Settings, MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -14,6 +14,7 @@ export function Navigation() {
     { name: "Home", path: "/", icon: Film },
     { name: "Movies", path: "/movies", icon: Film },
     { name: "My Bookings", path: "/bookings", icon: Ticket },
+    { name: "My Reviews", path: "/reviews", icon: MessageSquare },
   ];
 
   const adminItems = [

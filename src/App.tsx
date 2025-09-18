@@ -10,6 +10,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import Home from "./pages/Home";
 import Movies from "./pages/Movies";
 import Bookings from "./pages/Bookings";
+import Reviews from "./pages/Reviews";
 import Auth from "./pages/Auth";
 import CinemaSelection from "./pages/CinemaSelection";
 import ShowSelection from "./pages/ShowSelection";
@@ -36,6 +37,11 @@ const App = () => (
                 <Route path="/bookings" element={
                   <ProtectedRoute>
                     <Bookings />
+                  </ProtectedRoute>
+                } />
+                <Route path="/reviews" element={
+                  <ProtectedRoute>
+                    <Reviews />
                   </ProtectedRoute>
                 } />
                 <Route path="/auth" element={<Auth />} />

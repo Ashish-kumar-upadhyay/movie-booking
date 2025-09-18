@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Star, Clock, Play } from "lucide-react";
+import { Star, Clock, Play, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TrailerModal } from "./trailer-modal";
+import { ReviewModal } from "./review-modal";
+import { useAuth } from "@/hooks/useAuth";
 
 interface MovieCardProps {
   id: string;
@@ -32,7 +34,9 @@ export function MovieCard({
   index = 0,
 }: MovieCardProps) {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
 
   const handleBookNow = () => {
     if (onBookNow) {
@@ -61,6 +65,11 @@ export function MovieCard({
     if (trailerId) {
       setIsTrailerOpen(true);
     }
+  };
+
+  const handleViewReviews = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsReviewOpen(true);
   };
   return (
     <motion.div
@@ -156,17 +165,33 @@ export function MovieCard({
             <span className="text-accent font-medium">{genre}</span>
           </div>
           
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Button
-              onClick={handleBookNow}
-              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl backdrop-blur-sm border border-blue-400/30"
+          <div className="space-y-2">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              Book Now
-            </Button>
-          </motion.div>
+              <Button
+                onClick={handleBookNow}
+                className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl backdrop-blur-sm border border-blue-400/30"
+              >
+                Book Now
+              </Button>
+            </motion.div>
+            
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Button
+                onClick={handleViewReviews}
+                variant="outline"
+                className="w-full border-white/20 text-white hover:bg-white/10 transition-all duration-300"
+              >
+                <MessageSquare className="w-4 h-4 mr-2" />
+                Reviews
+              </Button>
+            </motion.div>
+          </div>
         </div>
       </motion.div>
 
@@ -179,6 +204,16 @@ export function MovieCard({
           trailerId={trailerId}
         />
       )}
+
+      {/* Review Modal */}
+      <ReviewModal
+        isOpen={isReviewOpen}
+        onClose={() => setIsReviewOpen(false)}
+        movieId={id}
+        movieTitle={title}
+        moviePoster={poster}
+        currentUserId={user?.id}
+      />
     </motion.div>
   );
 }
