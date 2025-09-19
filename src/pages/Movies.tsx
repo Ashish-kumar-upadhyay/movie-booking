@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MovieCard } from "@/components/movie/movie-card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, Filter, Star } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 // Import movie posters
 import bollywood1 from "@/assets/movie-bollywood-1.jpg";
@@ -13,7 +14,7 @@ import hollywood1 from "@/assets/movie-hollywood-1.jpg";
 import bollywood2 from "@/assets/movie-bollywood-2.jpg";
 import hollywood2 from "@/assets/movie-hollywood-2.jpg";
 
-const allMovies = [
+const staticAllMovies = [
   {
     id: "1",
     title: "Blockbuster Hero",
@@ -62,6 +63,39 @@ export default function Movies() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [selectedIndustry, setSelectedIndustry] = useState("all");
+  const [allMovies, setAllMovies] = useState(staticAllMovies);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadMovies() {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("movies")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(50);
+      if (!isMounted) return;
+      if (error) {
+        setLoading(false);
+        return;
+      }
+      const mapped = (data || []).map((m: any) => ({
+        id: m.id,
+        title: m.title,
+        genre: m.genre || m.category || "",
+        duration: (m.duration as any) || "",
+        rating: Number((m as any).rating ?? 0),
+        poster: m.poster_url || "/movie/placeholder.jpg",
+        industry: ((m as any).industry as "Bollywood" | "Hollywood") || "Bollywood",
+        trailerId: (m as any).trailer_url || "",
+      }));
+      if (mapped.length > 0) setAllMovies(mapped);
+      setLoading(false);
+    }
+    loadMovies();
+    return () => { isMounted = false; };
+  }, []);
 
   const filteredMovies = allMovies.filter((movie) => {
     const matchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase());

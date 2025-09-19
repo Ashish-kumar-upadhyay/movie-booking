@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Upload, X, Plus, Save, Film } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface MovieFormData {
   title: string;
@@ -100,8 +101,15 @@ export function AddMovieForm() {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Be compatible with current Supabase schema (which may not have genre/industry/rating fields)
+      const { error } = await supabase.from("movies").insert({
+        title: formData.title,
+        // Map form genre to 'category' column used in current schema
+        category: formData.genre || null,
+        description: formData.description || null,
+        poster_url: formData.poster || null,
+      });
+      if (error) throw error;
       
       toast({
         title: "Movie Added Successfully!",
@@ -124,10 +132,10 @@ export function AddMovieForm() {
         language: "Hindi",
         ageRating: "U/A"
       });
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "Failed to add movie. Please try again.",
+        description: error?.message || "Failed to add movie. Please try again.",
         variant: "destructive"
       });
     } finally {

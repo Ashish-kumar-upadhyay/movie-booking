@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { MovieCarousel } from "@/components/movie/movie-carousel";
 import { MovieCard } from "@/components/movie/movie-card";
@@ -44,7 +46,7 @@ const trendingMovies = [
   },
 ];
 
-const allMovies = [
+const staticAllMovies = [
   ...trendingMovies,
   {
     id: "4",
@@ -93,8 +95,17 @@ const allMovies = [
   },
 ];
 
-const bollywoodMovies = allMovies.filter(movie => movie.industry === "Bollywood");
-const hollywoodMovies = allMovies.filter(movie => movie.industry === "Hollywood");
+function mapDbMovieToCard(m: any) {
+  return {
+    id: m.id,
+    title: m.title,
+    description: m.description || "",
+    poster: m.poster_url || "/movie/placeholder.jpg",
+    rating: Number(m.rating ?? 0),
+    industry: m.industry as "Bollywood" | "Hollywood",
+    trailerId: m.trailer_url || "",
+  };
+}
 
 const stats = [
   { icon: Users, label: "Happy Customers", value: "50K+" },
@@ -104,11 +115,41 @@ const stats = [
 ];
 
 export default function Home() {
+  const [allMovies, setAllMovies] = useState(staticAllMovies);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadMovies() {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("movies")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(20);
+      if (!isMounted) return;
+      if (error) {
+        // silently fall back to static list
+        setLoading(false);
+        return;
+      }
+      const mapped = (data || []).map(mapDbMovieToCard);
+      if (mapped.length > 0) setAllMovies(mapped);
+      setLoading(false);
+    }
+    loadMovies();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
   const navigate = useNavigate();
 
   const handleBrowseMovies = () => {
     navigate('/movies');
   };
+
+  const bollywoodMovies = allMovies.filter(movie => movie.industry === "Bollywood");
+  const hollywoodMovies = allMovies.filter(movie => movie.industry === "Hollywood");
 
   return (
     <div className="min-h-screen">

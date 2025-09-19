@@ -116,7 +116,7 @@ export default function Auth() {
                         placeholder="Enter your email"
                         value={signInData.email}
                         onChange={(e) => setSignInData({ ...signInData, email: e.target.value })}
-                        className="pl-10"
+                        className="pl-10 text-sm"
                         required
                       />
                     </div>
@@ -158,7 +158,7 @@ export default function Auth() {
                         placeholder="Enter your email"
                         value={signUpData.email}
                         onChange={(e) => setSignUpData({ ...signUpData, email: e.target.value })}
-                        className="pl-10"
+                        className="pl-10 text-sm"
                         required
                       />
                     </div>
@@ -253,7 +253,7 @@ export default function Auth() {
                         placeholder="admin@cinemabook.com"
                         value={adminData.email}
                         onChange={(e) => setAdminData({ ...adminData, email: e.target.value })}
-                        className="pl-10"
+                        className="pl-10 text-sm"
                         required
                       />
                     </div>

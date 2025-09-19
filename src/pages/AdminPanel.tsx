@@ -18,7 +18,6 @@ import {
   Star,
   LogOut
 } from "lucide-react";
-import { AddMovieForm } from "@/components/admin/add-movie-form";
 import { MovieList } from "@/components/admin/movie-list";
 
 // Mock data for admin dashboard
@@ -156,10 +155,9 @@ export default function AdminPanel() {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-8">
+            <TabsList className="grid w-full grid-cols-3 mb-8">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="movies">Movies</TabsTrigger>
-              <TabsTrigger value="add-movie">Add Movie</TabsTrigger>
               <TabsTrigger value="analytics">Analytics</TabsTrigger>
             </TabsList>
 
@@ -206,14 +204,7 @@ export default function AdminPanel() {
                     <CardTitle>Quick Actions</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <Button 
-                      className="w-full justify-start" 
-                      variant="outline"
-                      onClick={() => setActiveTab("add-movie")}
-                    >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Add New Movie
-                    </Button>
+                    
                     <Button className="w-full justify-start" variant="outline">
                       <Users className="w-4 h-4 mr-2" />
                       View All Users
@@ -236,10 +227,7 @@ export default function AdminPanel() {
               <MovieList />
             </TabsContent>
 
-            {/* Add Movie Tab */}
-            <TabsContent value="add-movie">
-              <AddMovieForm />
-            </TabsContent>
+            
 
             {/* Analytics Tab */}
             <TabsContent value="analytics">

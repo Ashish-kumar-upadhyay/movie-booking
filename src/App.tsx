@@ -8,6 +8,7 @@ import { Footer } from "@/components/ui/footer";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import AdminRoute from "@/components/AdminRoute";
 import Home from "./pages/Home";
 import Movies from "./pages/Movies";
 import Bookings from "./pages/Bookings";
@@ -29,7 +30,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter>
+          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
             <div className="min-h-screen bg-background flex flex-col">
               <Navigation />
               <main className="flex-1">
@@ -56,9 +57,9 @@ const App = () => (
                     </ProtectedRoute>
                   } />
                   <Route path="/admin" element={
-                    <ProtectedRoute>
+                    <AdminRoute>
                       <AdminPanel />
-                    </ProtectedRoute>
+                    </AdminRoute>
                   } />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
